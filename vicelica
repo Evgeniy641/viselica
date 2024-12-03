@@ -1,0 +1,42 @@
+def play():
+    word = choose_word()
+    guessed = "_" * len(word)
+    guessed_list = list(guessed)
+    word_list = list(word)
+    tries = 6
+    guessed_letters = set()
+
+    print("Давайте играть в Виселицу!")
+    print(display_hangman(tries))
+    print("Слово: ", " ".join(guessed_list))
+
+    while "_" in guessed_list and tries > 0:
+        guess = input("Введите букву: ").lower()
+
+        if guess in guessed_letters:
+            print("Вы уже угадывали эту букву. Попробуйте другую.")
+            continue
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Пожалуйста, введите одну букву.")
+            continue
+
+        guessed_letters.add(guess)
+
+        if guess in word_list:
+            for index, letter in enumerate(word_list):
+                if letter == guess:
+                    guessed_list[index] = guess
+            print("Правильно! Угаданное слово: ", " ".join(guessed_list))
+        else:
+            tries -= 1
+            print("Неправильно! У вас осталось попыток:", tries)
+            print(display_hangman(tries))
+
+    if "_" not in guessed_list:
+        print("Поздравляем! Вы угадали слово:", word)
+    else:
+        print("Вы проиграли! Загаданное слово было:", word)
+
+if __name__ == "__main__":
+    play()
