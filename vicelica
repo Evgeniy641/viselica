@@ -1,3 +1,9 @@
+import random
+
+def choose_word():
+    words = ["программирование", "компьютер", "игра", "разработка", "алгоритм","линукс","виселица"]
+    return random.choice(words)
+
 def display_hangman(tries):
     stages = [
         """
